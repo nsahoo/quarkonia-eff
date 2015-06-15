@@ -4,9 +4,7 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TLorentzVector.h"
-#include "TH1D.h"
 
-//#include <vector>
 #include <string>
 #include <iostream>
 
@@ -68,8 +66,6 @@ class treeLooper {
   TBranch        *b_gen_muonP_p4;   //!
   TBranch        *b_gen_muonN_p4;   //!
 
-
 };
-
 
 #endif

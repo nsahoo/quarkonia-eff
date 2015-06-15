@@ -17,16 +17,16 @@ CXX	         += -I$(INCLUDEDIR)
 all: quarkonia
 
 quarkonia: quarkonia.cc ptLooper plot
-	$(CXX) $(CXXFLAGS) $(ROOTCFLAGS) -o quarkonia  $(ROOTLIBSFILTERED) quarkonia.cc treeLooper ptLooper plot
+	$(CXX) $(CXXFLAGS) $(ROOTCFLAGS) -o quarkonia  $(ROOTLIBSFILTERED) quarkonia.cc treeLooper.o ptLooper.o plot.o
 
 treeLooper: treeLooper.cpp
-	$(CXX) -c $(CXXFLAGS) $(ROOTCFLAGS) -o treeLooper  treeLooper.cpp
+	$(CXX) -c $(CXXFLAGS) $(ROOTCFLAGS) -o treeLooper.o treeLooper.cpp
 
 ptLooper: ptLooper.cpp treeLooper
-	$(CXX) -c $(CXXFLAGS) $(ROOTCFLAGS) -o ptLooper ptLooper.cpp
+	$(CXX) -c $(CXXFLAGS) $(ROOTCFLAGS) -o ptLooper.o ptLooper.cpp
 
 plot: plot.cc
-	$(CXX) -c $(CXXFLAGS) $(ROOTCFLAGS) -o plot  plot.cc
+	$(CXX) -c $(CXXFLAGS) $(ROOTCFLAGS) -o plot.o plot.cc
 
 clean:
-	rm -rf quarkonia treeLooper ptLooper plot
+	rm -rf quarkonia treeLooper.o ptLooper.o plot.o

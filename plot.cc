@@ -1,7 +1,10 @@
 #include "plot.h"
 
-plot::plot(std::string name, int x, int y) : name_(name), tail(""),
-                           dir("./") {
+plot::plot(std::string name, int x, int y) :
+  name_(name),
+  tail(""),
+  dir("./")
+{
   c = new TCanvas(name_.c_str(), name_.c_str(), x, y);
 }
 
@@ -57,4 +60,5 @@ void plot::plotAll() {
 }
 
 plot::~plot() {
+  delete c;
 }

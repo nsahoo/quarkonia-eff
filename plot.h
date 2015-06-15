@@ -8,31 +8,31 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
 class plot {
  public:
-  plot(std::string name, int x = 600, int y = 600);
+  plot(string name, int x = 600, int y = 600);
   ~plot();
 
   void plot1D(TH1D * h);
   void plot2D(TH2D * h, string options = "COL");
 
-  void setTail(std::string newTail) {tail = newTail;};
-  void setDir(std::string newDir) {dir = newDir;};
+  void setTail(string newTail) {tail = newTail;};
+  void setDir(string newDir) {dir = newDir;};
 
-  void add(TH1 *h1);
+  void add(TH1D h1);
   void plotAll();
 
  private:
-  TCanvas * c;
-  std::string name_;
-  std::string tail;
-  std::string dir;
+  string name_;
+  string tail;
+  string dir;
+  shared_ptr <TCanvas> c;
 
-  std::vector <TH1 *> Hists;
-
+  vector <TH1D > Hists;
 
 };
 

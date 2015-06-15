@@ -13,7 +13,7 @@ using namespace std;
 class treeLooper {
  public:
   treeLooper(string ttree_file = "file.root", string tail = "", int nevent = -1, int ievent = 0);
-  ~treeLooper();
+  virtual ~treeLooper();
 
   int get_entries() {return events;};
   virtual void doLoop() = 0;

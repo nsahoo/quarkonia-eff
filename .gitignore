@@ -1,6 +1,6 @@
 *~
 .DS_Store
 quarkonia
-plot.so
-ptLooper.so
-treeLooper.so
+plot.o
+ptLooper.o
+treeLooper.o

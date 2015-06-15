@@ -35,18 +35,18 @@ int main(int argc, char **argv) {
                                 "/Users/lucamartini/Downloads/PsiMM-dataset-skim-custompt-pthat6.root"};
   vector <string> tail = {"_pthat1", "_pthat2", "_pthat5", "_pthat6"};
 
-  vector <plot*> plots;
-  vector <TH1D *> histos;
+  vector <plot> plots;
+  vector <TH1D> histos;
 
   for (unsigned int i = 0; i < inputFiles.size(); i++) { // for each different configuration file
-    ptLooper * JpsiHat = new ptLooper(inputFiles.at(i), tail.at(i));
-    JpsiHat->doLoop();
+    ptLooper JpsiHat(inputFiles.at(i), tail.at(i));
+    JpsiHat.doLoop();
 
-    histos = JpsiHat->get_histos1D();
+    histos = JpsiHat.get_histos1D();
 
     for (unsigned int j = 0; j < histos.size(); j++ ){ // for each histogram in each file
-      beauty_h(histos.at(j), i);
-      string histo_name(histos.at(j)->GetName());
+      beauty_h(&histos.at(j), i);
+      string histo_name(histos.at(j).GetName());
       size_t found = histo_name.find("_h_");
       if (found != string::npos) {
         histo_name = histo_name.substr(0, found);
@@ -57,29 +57,30 @@ int main(int argc, char **argv) {
       }
 
       if (i == 0) {
-        plot * plot_i = new plot(histo_name);
-        plot_i->setDir("./plots/");
+        plot plot_i(histo_name);
+        plot_i.setDir("./plots/");
         plots.push_back(plot_i);
       }
-      plots.at(j)->add(histos.at(j)); // histograms to be drawn together for each file
+      plots.at(j).add(histos.at(j)); // histograms to be drawn together for each file
     }
 
-    plot * plot2Ddimu = new plot(Form("dimuonpteta%s", tail.at(i).c_str()));
-    plot2Ddimu->setDir("./plots/");
-    TH2D * histo2Ddimu = JpsiHat->get_dimuonpteta_h();
-    histo2Ddimu->Scale(1./histo2Ddimu->GetEntries());
-    plot2Ddimu->plot2D(histo2Ddimu, "COLZ");
+    plot plot2Ddimu(Form("dimuonpteta%s", tail.at(i).c_str()));
+    plot2Ddimu.setDir("./plots/");
+    TH2D histo2Ddimu(JpsiHat.get_dimuonpteta_h());
+    histo2Ddimu.Scale(1./histo2Ddimu.GetEntries());
+    plot2Ddimu.plot2D(&histo2Ddimu, "COLZ");
 
-    plot * plot2Dmu = new plot(Form("muonpteta%s", tail.at(i).c_str()));
-    plot2Dmu->setDir("./plots/");
-    TH2D * histo2Dmu = JpsiHat->get_muonpteta_h();
-    histo2Dmu->Scale(1./histo2Dmu->GetEntries());
-    plot2Dmu->plot2D(histo2Dmu, "COLZ");
+    plot plot2Dmu(Form("muonpteta%s", tail.at(i).c_str()));
+    plot2Dmu.setDir("./plots/");
+    TH2D histo2Dmu(JpsiHat.get_muonpteta_h());
+    histo2Dmu.Scale(1./histo2Dmu.GetEntries());
+    plot2Dmu.plot2D(&histo2Dmu, "COLZ");
 
   }
 
+
   for (unsigned int  i = 0; i < plots.size(); i++ ) {
-    plots.at(i)->plotAll();
+    plots.at(i).plotAll();
   }
 
   return EXIT_SUCCESS;

@@ -24,7 +24,9 @@ ptLooper::ptLooper(string ttree_file, string tail, int nevent, int ievent) : tre
   dimuonPtTriggered_h = new TH1D(Form("dimuonPtTriggered_h_%s", tail.c_str()), Form("dimuonPtTriggered%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);a.u.", tail.c_str()), 100, 0., 30.);
   histos1D.push_back(dimuonPtTriggered_h);
 
+
   dimuonpteta_h = new TH2D(Form("dimuonpteta_h_%s", tail.c_str()), Form("dimuonpteta_h%s;#eta^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5, 100, 0., 30.);
+
   muonpteta_h = new TH2D(Form("muonpteta_h_%s", tail.c_str()), Form("muonpteta_h%s;#eta^{#mu^{#pm}};p^{#mu^{#pm}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5, 100, 0., 30.);
 
 }
@@ -32,7 +34,13 @@ ptLooper::ptLooper(string ttree_file, string tail, int nevent, int ievent) : tre
 
 
 ptLooper::~ptLooper() {
-  if (dimuonPt_h) delete dimuonPt_h;
+  for (unsigned int i = 0; i < histos1D.size(); i++) {
+    delete histos1D.at(i);
+  }
+
+  if (dimuonpteta_h) delete dimuonpteta_h;
+  if (muonpteta_h) delete muonpteta_h;
+
 }
 
 void ptLooper::doLoop() {

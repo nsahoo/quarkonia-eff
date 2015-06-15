@@ -9,6 +9,10 @@ treeLooper::treeLooper(string ttree_file, string tail, int nevent, int ievent) :
   cout << "opening " << ttree_file << endl;
   input_f = new TFile(ttree_file.c_str());
   tree = (TTree*)input_f->Get("rootuple/oniaTree");
+  if (!tree) {
+    cout << "wrong tree name: rootuple/oniaTree" << endl;
+    exit(2);
+  }
 
   events = tree->GetEntries();
   if (nevent == -1) nevent = events;

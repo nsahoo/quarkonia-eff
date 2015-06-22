@@ -14,7 +14,7 @@
 
 using namespace std;
 
-vector <int> colors = {2, 4, 1, 6};
+vector <int> colors = {2, 4, 1, 6, 8};
 
 void beauty_h(TH1 * histo, unsigned int i) {
   histo->Scale(1./histo->GetEntries());
@@ -30,10 +30,18 @@ void beauty_h(TH1 * histo, unsigned int i) {
 int main(int argc, char **argv) {
 
   vector <string> inputFiles = {"/Users/lucamartini/Downloads/PsiMM-dataset-skim-pthat1.root",
-                                "/Users/lucamartini/Downloads/PsiMM-dataset-skim-pthat2.root",
-                                "/Users/lucamartini/Downloads/PsiMM-dataset-skim-pthat5.root",
-                                "/Users/lucamartini/Downloads/PsiMM-dataset-skim-custompt-pthat6.root"};
-  vector <string> tail = {"_pthat1", "_pthat2", "_pthat5", "_pthat6"};
+                                //"/Users/lucamartini/Downloads/PsiMM-dataset-skim-pthat2.root",
+                                //"/Users/lucamartini/Downloads/PsiMM-dataset-skim-pthat5.root",
+                                "/Users/lucamartini/Downloads/PsiMM-dataset-skim-custompt-pthat6.root",
+                                "/Users/lucamartini/Downloads/PsiMM-dataset-skim-custompt-pthat5.root"
+  };
+
+  vector <string> tail = {"_pthat1",
+                          //"_pthat2",
+                          //"_pthat5",
+                          "_pthat6",
+                          "_pthat5custom"
+  };
 
   vector <plot> plots;
   vector <TH1D> histos;

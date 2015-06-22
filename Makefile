@@ -3,12 +3,13 @@ ROOTGLIBS     = $(shell root-config --glibs)
 
 CXX           = clang++
 CXXFLAGS      = -fPIC -ansi -D_GNU_SOURCE -O2 -Wall -Wextra
-#LDFLAGS       = -g3
+CXXDEBUG      = -O -g
+
+ifeq ($(DEB),1)
+	CXXFLAGS += $(CXXDEBUG)
+endif
 
 ROOTLIBSFILTERED  = $(filter-out -lNew, $(ROOTGLIBS))
-
-INCLUDEDIR       = ./
-CXX	         += -I$(INCLUDEDIR)
 
 ###########
 # TARGETS #

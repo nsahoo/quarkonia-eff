@@ -39,8 +39,8 @@ void plot::plotAll() {
   }
   Hists.at(0).SetMaximum(1.1*max);
   for (unsigned int i = 0; i < Hists.size(); i++) {
-    if (i == 0) Hists.at(i).Draw();
-    else Hists.at(i).Draw("same");
+    if (i == 0) Hists.at(i).Draw("e");
+    else Hists.at(i).Draw("esame");
   }
   string title(Hists.at(0).GetTitle());
   size_t found =title.find("dimuonEta4");

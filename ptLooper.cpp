@@ -12,6 +12,14 @@ ptLooper::ptLooper(string ttree_file, string tail, int nevent, int ievent) : tre
                                                                              muonpteta_h(Form("muonpteta_h_%s", tail.c_str()), Form("muonpteta_h%s;#eta^{#mu^{#pm}};p^{#mu^{#pm}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5, 100, 0., 30.)
 {
 
+  dimuonPt_h.Sumw2(true);
+  dimuonPt4_h.Sumw2(true);
+  dimuonEta_h.Sumw2(true);
+  dimuonEta4_h.Sumw2(true);
+  muPN_mass_h.Sumw2(true);
+  mass_h.Sumw2(true);
+  dimuonPtTriggered_h.Sumw2(true);
+
 }
 
 

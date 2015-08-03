@@ -11,14 +11,14 @@
 using namespace std;
 
 class treeLooper {
- public:
+public:
   treeLooper(string ttree_file = "file.root", string tail = "", int nevent = -1, int ievent = 0);
   virtual ~treeLooper();
 
   int get_entries() {return events;};
   virtual void doLoop() = 0;
 
- protected:
+protected:
   TFile * input_f;
   TTree * tree;
 
@@ -29,9 +29,13 @@ class treeLooper {
   int max_entry;
 
   // Declaration of leaf types
-  Int_t           run;
-  Int_t           event;
-  Int_t           irank;
+  UInt_t          run;
+  ULong64_t       event;
+  UInt_t          lumiblock;
+  UInt_t          nonia;
+  UInt_t          nmuons;
+  UInt_t          trigger;
+  Int_t           charge;
   TLorentzVector  *dimuon_p4;
   TLorentzVector  *muonP_p4;
   TLorentzVector  *muonN_p4;
@@ -40,8 +44,13 @@ class treeLooper {
   Float_t         DCA;
   Float_t         ppdlPV;
   Float_t         ppdlErrPV;
+  Float_t         ppdlBS;
+  Float_t         ppdlErrBS;
   Float_t         cosAlpha;
-  Int_t           numPrimaryVertices;
+  Float_t         lxyPV;
+  Float_t         lxyBS;
+  UInt_t          numPrimaryVertices;
+  Int_t           mother_pdgId;
   Int_t           dimuon_pdgId;
   TLorentzVector  *gen_dimuon_p4;
   TLorentzVector  *gen_muonP_p4;
@@ -50,7 +59,11 @@ class treeLooper {
   // List of branches
   TBranch        *b_run;   //!
   TBranch        *b_event;   //!
-  TBranch        *b_irank;   //!
+  TBranch        *b_lumiblock;   //!
+  TBranch        *b_nonia;   //!
+  TBranch        *b_nmuons;   //!
+  TBranch        *b_trigger;   //!
+  TBranch        *b_charge;   //!
   TBranch        *b_dimuon_p4;   //!
   TBranch        *b_muonP_p4;   //!
   TBranch        *b_muonN_p4;   //!
@@ -59,8 +72,13 @@ class treeLooper {
   TBranch        *b_DCA;   //!
   TBranch        *b_ppdlPV;   //!
   TBranch        *b_ppdlErrPV;   //!
+  TBranch        *b_ppdlBS;   //!
+  TBranch        *b_ppdlErrBS;   //!
   TBranch        *b_cosAlpha;   //!
+  TBranch        *b_lxyPV;   //!
+  TBranch        *b_lxyBS;   //!
   TBranch        *b_numPrimaryVertices;   //!
+  TBranch        *b_mother_pdgId;   //!
   TBranch        *b_dimuon_pdgId;   //!
   TBranch        *b_gen_dimuon_p4;   //!
   TBranch        *b_gen_muonP_p4;   //!

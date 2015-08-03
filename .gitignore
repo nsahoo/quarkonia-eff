@@ -2,7 +2,8 @@
 \#*#
 *.dSYM/
 .DS_Store
+*.o
 quarkonia
-plot.o
-ptLooper.o
-treeLooper.o
+acc
+eff
+effSingle

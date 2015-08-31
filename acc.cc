@@ -5,6 +5,7 @@
 
 #include "accLooper.h"
 #include "plot.h"
+#include "options.h"
 
 #include <iostream>
 #include <fstream>
@@ -29,27 +30,21 @@ void beauty_h(TH1 * histo, unsigned int i) {
 
 int main(int argc, char **argv) {
 
-  vector<pair<string, string> > dimuons;
-  dimuons.push_back(make_pair("inputs/rootuple-Onia2MuMu_JPsiMM-PGun-PtFlat-NF.root", "JPsi"));
+  options opt(argc, argv);
+  // int ievent = opt.get_ievent();
+  // int nevent = opt.get_nevent();
+  string tail = opt.get_tail();
+  string inputfile = opt.get_file();
+  Meson meson = opt.get_meson();
 
-  vector <plot> plots;
-  vector <TH1D> histos;
+  accLooper DimuonAcc(inputfile, tail, meson);
+  DimuonAcc.doLoop();
+  DimuonAcc.doAcc();
 
-  for (unsigned int i = 0; i < dimuons.size(); i++) { // for each different dimuon
-    accLooper DimuonAcc(dimuons.at(i).first, dimuons.at(i).second);
-    DimuonAcc.doLoop();
-    DimuonAcc.doAcc();
-
-    TH2D acc_h = DimuonAcc.getAcc();
-    plot acc_plot(acc_h.GetName());
-    acc_plot.setDir("./plots/acc/");
-    acc_plot.plot2D(&acc_h, "COLZ");
-  }
-
-
-  // for (unsigned int  i = 0; i < plots.size(); i++ ) {
-  //   plots.at(i).plotAll();
-  // }
+  TH2D acc_h = DimuonAcc.getAcc();
+  plot acc_plot(acc_h.GetName());
+  acc_plot.setDir("./plots/acc/");
+  acc_plot.plot2D(&acc_h, "COLZ");
 
   return EXIT_SUCCESS;
 }

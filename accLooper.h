@@ -3,8 +3,6 @@
 
 #include "treeLooper.h"
 
-#include "accCut.h"
-
 #include "TH1D.h"
 #include "TH2D.h"
 #include "TMathBase.h"
@@ -14,7 +12,7 @@
 
 class accLooper : public treeLooper {
  public:
-  accLooper(string ttree_file = "file.root", string tail = "", int nevent = -1, int ievent = 0);
+  accLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0);
   virtual ~accLooper();
 
   virtual void doLoop();

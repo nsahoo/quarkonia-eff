@@ -1,6 +1,8 @@
 #ifndef TREELOOPER_H
 #define TREELOOPER_H
 
+#include "CommonFuncs.h"
+
 #include "TFile.h"
 #include "TTree.h"
 #include "TLorentzVector.h"
@@ -12,7 +14,7 @@ using namespace std;
 
 class treeLooper {
 public:
-  treeLooper(string ttree_file = "file.root", string tail = "", int nevent = -1, int ievent = 0);
+  treeLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0);
   virtual ~treeLooper();
 
   int get_entries() {return events;};
@@ -23,6 +25,7 @@ protected:
   TTree * tree;
 
   string tail_;
+  Meson meson_;
   int events;
   int nevent_;
   int ievent_;

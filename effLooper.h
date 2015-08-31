@@ -3,7 +3,7 @@
 
 #include "treeLooper.h"
 
-#include "accCut.h"
+#include "CommonFuncs.h"
 
 #include "TH1D.h"
 #include "TH2D.h"
@@ -14,7 +14,7 @@
 
 class effLooper : public treeLooper {
  public:
-  effLooper(string ttree_file = "file.root", string tail = "", int nevent = -1, int ievent = 0);
+  effLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0);
   virtual ~effLooper();
 
   virtual void doLoop();

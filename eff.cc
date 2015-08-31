@@ -5,6 +5,7 @@
 
 #include "effLooper.h"
 #include "plot.h"
+#include "options.h"
 
 #include <iostream>
 #include <fstream>
@@ -22,24 +23,24 @@ void plot2D(TH2D * h) {
 
 int main(int argc, char **argv) {
 
-  vector<pair<string, string> > dimuons;
-  dimuons.push_back(make_pair("inputs/rootuple-Onia2MuMu_JPsiMM-PGun-PtFlat-NF.root", "JPsi"));
+  options opt(argc, argv);
+  // int ievent = opt.get_ievent();
+  // int nevent = opt.get_nevent();
+  string tail = opt.get_tail();
+  string inputfile = opt.get_file();
+  Meson meson = opt.get_meson();
 
-  vector <plot> plots;
-  vector <TH1D> histos;
+  effLooper DimuonEff(inputfile, tail, meson);
+  DimuonEff.doLoop();
+  DimuonEff.doEff();
 
-  for (unsigned int i = 0; i < dimuons.size(); i++) { // for each different dimuon
-    effLooper DimuonEff(dimuons.at(i).first, dimuons.at(i).second);
-    DimuonEff.doLoop();
-    DimuonEff.doEff();
+  TH2D recoEff = DimuonEff.getRecoEff();
+  TH2D trigEff = DimuonEff.getTrigEff();
+  TH2D totEff = DimuonEff.getTotEff();
+  plot2D(&recoEff);
+  plot2D(&trigEff);
+  plot2D(&totEff);
 
-    TH2D recoEff = DimuonEff.getRecoEff();
-    TH2D trigEff = DimuonEff.getTrigEff();
-    TH2D totEff = DimuonEff.getTotEff();
-    plot2D(&recoEff);
-    plot2D(&trigEff);
-    plot2D(&totEff);
-  }
 
   return EXIT_SUCCESS;
 }

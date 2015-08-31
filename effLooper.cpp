@@ -1,7 +1,7 @@
 #include "effLooper.h"
 
-effLooper::effLooper(string ttree_file, string tail, int nevent, int ievent)
-  : treeLooper(ttree_file, tail, nevent, ievent),
+effLooper::effLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent)
+  : treeLooper(ttree_file, tail, meson, nevent, ievent),
     all_pt_h(Form("all_pt_h_%s", tail.c_str()), Form("all_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Alleptance", tail.c_str()), 100, 0., 100.),
     all_y_h(Form("all_y_h_%s", tail.c_str()), Form("all_y_%s_h;y^{#mu^{+}#mu^{-}};Alleptance", tail.c_str()), 100, -2.5, 2.5),
     all_y_pt_h(Form("all_y_pt_h_%s", tail.c_str()), Form("all_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
@@ -52,10 +52,12 @@ effLooper::~effLooper() {
 }
 
 bool effLooper::triggerTest() {
-  if (  ((trigger & 8) == 8) || ((trigger & 1) == 1) )
-    {
-    return true;
-  }
+  if ( meson_ == JPsi && (((trigger & 8) == 8) || ((trigger & 1) == 1)) ) return true;
+  if ( meson_ == Psi2S && (((trigger & 16) == 16) || ((trigger & 2) == 2)) ) return true;
+  if ( meson_ == Ups1S && (((trigger & 32) == 32) || ((trigger & 4) == 4)) ) return true;
+  if ( meson_ == Ups2S && (((trigger & 32) == 32) || ((trigger & 4) == 4)) ) return true;
+  if ( meson_ == Ups3S && (((trigger & 32) == 32) || ((trigger & 4) == 4)) ) return true;
+
   return false;
 }
 

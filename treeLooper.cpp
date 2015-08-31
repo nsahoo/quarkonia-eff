@@ -1,7 +1,8 @@
 #include "treeLooper.h"
 
-treeLooper::treeLooper(string ttree_file, string tail, int nevent, int ievent) :
+treeLooper::treeLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent) :
   tail_(tail),
+  meson_(meson),
   nevent_(nevent),
   ievent_(ievent)
 {

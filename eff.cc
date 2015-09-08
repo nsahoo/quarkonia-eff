@@ -29,8 +29,9 @@ int main(int argc, char **argv) {
   string tail = opt.get_tail();
   string inputfile = opt.get_file();
   Meson meson = opt.get_meson();
+  bool barrel = opt.get_barrel();
 
-  effLooper DimuonEff(inputfile, tail, meson);
+  effLooper DimuonEff(inputfile, tail, meson, -1, 0, barrel);
   DimuonEff.doLoop();
   DimuonEff.doEff();
 
@@ -40,7 +41,6 @@ int main(int argc, char **argv) {
   plot2D(&recoEff);
   plot2D(&trigEff);
   plot2D(&totEff);
-
 
   return EXIT_SUCCESS;
 }

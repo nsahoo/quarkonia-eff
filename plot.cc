@@ -13,6 +13,7 @@ void plot::plot1D(TH1D * h) {
   c->cd();
   h->Draw();
   c->Print(Form("%s/%s%s.pdf", dir.c_str(), name_.c_str(), tail.c_str()));
+  c->Print(Form("%s/%s%s.png", dir.c_str(), name_.c_str(), tail.c_str()));
   h->SaveAs(Form("%s/%s%s.root", dir.c_str(), name_.c_str(), tail.c_str()));
 }
 
@@ -22,6 +23,7 @@ void plot::plot2D(TH2D * h, string options) {
   h->SetStats(0);
   h->Draw(options.c_str());
   c->Print(Form("%s/%s%s.pdf", dir.c_str(), name_.c_str(), tail.c_str()));
+  c->Print(Form("%s/%s%s.png", dir.c_str(), name_.c_str(), tail.c_str()));
   h->SaveAs(Form("%s/%s%s.root", dir.c_str(), name_.c_str(), tail.c_str()));
 }
 
@@ -56,6 +58,7 @@ void plot::plotAll() {
   }
   Hists.at(0).SetTitle("");
   c->Print(Form("%s/%s%s.pdf", dir.c_str(), name_.c_str(), tail.c_str()));
+  c->Print(Form("%s/%s%s.png", dir.c_str(), name_.c_str(), tail.c_str()));
 
 }
 

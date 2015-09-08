@@ -14,7 +14,7 @@
 
 class effLooper : public treeLooper {
  public:
-  effLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0);
+  effLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0, bool barrel = false);
   virtual ~effLooper();
 
   virtual void doLoop();
@@ -28,6 +28,8 @@ class effLooper : public treeLooper {
 private:
 
   bool triggerTest();
+
+  const bool barrel_;
 
   TH1D all_pt_h;
   TH1D all_y_h;

@@ -2,13 +2,13 @@
 
 options::options(int argc, char *argv[]) :
   program_name(argv[0]),
-  short_options("hf:i:n:t:m:"),
-  type(0),
+  short_options("hf:i:n:t:m:b"),
+  file("./inputs/rootuple-Onia2MuMu_JPsiMM-PGun-PtFlat-NF.root"),
   ievent(0),
   nevent(-1),
-  meson(JPsi),
   tail(""),
-  file("./inputs/rootuple-Onia2MuMu_JPsiMM-PGun-PtFlat-NF.root"),
+  meson(JPsi),
+  barrel(false),
   argc_(argc) {
 
   argv_ = new char*[argc+1];
@@ -40,6 +40,7 @@ void options::print_usage (FILE* stream, int exit_code) {
            " -f --file Input file.\n"
            " -m --meson Meson type:\n"
            "\tJPsi, Psi2S, Ups1S, Ups2S, Ups3S\n"
+           " -b --barrel trigger\n"
            );
 
   exit (exit_code);
@@ -79,6 +80,11 @@ void options::doit() {
       case 't':
         tail = optarg;
         std::cout << "appending " << tail << std::endl;
+        break;
+
+      case 'b':
+        barrel = true;
+        std::cout << "barrel trigger" << std::endl;
         break;
 
       case 'f':

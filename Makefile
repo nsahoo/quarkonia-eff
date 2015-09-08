@@ -15,12 +15,12 @@ ROOTLIBSFILTERED  = $(filter-out -lNew, $(ROOTGLIBS))
 # TARGETS #
 ###########
 
-all: acc eff effSingle
+all: acc eff #effSingle
 
 acc: acc.cc accLooper plot options
 	$(CXX) $(CXXFLAGS) $(ROOTCFLAGS) -o acc  $(ROOTLIBSFILTERED) acc.cc treeLooper.o accLooper.o CommonFuncs.o plot.o options.o
 
-eff: eff.cc effLooper plot
+eff: eff.cc effLooper plot options
 	$(CXX) $(CXXFLAGS) $(ROOTCFLAGS) -o eff  $(ROOTLIBSFILTERED) eff.cc treeLooper.o effLooper.o CommonFuncs.o plot.o options.o
 
 #effSingle: effSingle.cc effSingleLooper plot

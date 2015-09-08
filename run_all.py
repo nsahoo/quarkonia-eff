@@ -22,6 +22,13 @@ else:
 
 for i in range(len(files)):
     options_i = ["--tail", mesons[i], "--file", files[i], "--meson", mesons[i]]
-    full_command = [command] + options_i
-    print full_command
-    subprocess.call(full_command)
+    if command is './eff':
+        trig = 2
+    else:
+        trig = 1
+    for j in range(trig):
+        if j == 1:
+            options_i = ["--tail", mesons[i] + "_barrel", "--file", files[i], "--meson", mesons[i], "--barrel"]
+        full_command = [command] + options_i
+        print full_command
+        subprocess.call(full_command)

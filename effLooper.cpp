@@ -1,7 +1,8 @@
 #include "effLooper.h"
 
-effLooper::effLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent)
+effLooper::effLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent, bool barrel)
   : treeLooper(ttree_file, tail, meson, nevent, ievent),
+    barrel_(barrel),
     all_pt_h(Form("all_pt_h_%s", tail.c_str()), Form("all_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Alleptance", tail.c_str()), 100, 0., 100.),
     all_y_h(Form("all_y_h_%s", tail.c_str()), Form("all_y_%s_h;y^{#mu^{+}#mu^{-}};Alleptance", tail.c_str()), 100, -2.5, 2.5),
     all_y_pt_h(Form("all_y_pt_h_%s", tail.c_str()), Form("all_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
@@ -52,12 +53,47 @@ effLooper::~effLooper() {
 }
 
 bool effLooper::triggerTest() {
-  if ( meson_ == JPsi && (((trigger & 8) == 8) || ((trigger & 1) == 1)) ) return true;
-  if ( meson_ == Psi2S && (((trigger & 16) == 16) || ((trigger & 2) == 2)) ) return true;
-  if ( meson_ == Ups1S && (((trigger & 32) == 32) || ((trigger & 4) == 4)) ) return true;
-  if ( meson_ == Ups2S && (((trigger & 32) == 32) || ((trigger & 4) == 4)) ) return true;
-  if ( meson_ == Ups3S && (((trigger & 32) == 32) || ((trigger & 4) == 4)) ) return true;
+  /*
+    HLT_Dimuon16_Jpsi
+    HLT_Dimuon13_PsiPrime
+    HLT_Dimuon13_Upsilon
+    HLT_Dimuon10_Jpsi_Barrel
+    HLT_Dimuon8_PsiPrime_Barrel
+    HLT_Dimuon8_Upsilon_Barrel
+    HLT_Dimuon20_Jpsi
+    HLT_Dimuon0_Phi_Barrel
+  */
+  if ( meson_ == JPsi) {
+    if (barrel_) {
+      if ((trigger & 8) == 8) return true;
+      return false;
+    }
+    else {
+      if ((trigger & 1) == 1) return true;
+      return false;
+    }
+  }
+  if ( meson_ == Psi2S) {
+    if (barrel_) {
+      if ((trigger & 16) == 16) return true;
+      return false;
+    }
+    else {
+      if ((trigger & 2) == 2) return true;
+      return false;
+    }
+  }
 
+  if ( meson_ == Ups1S || meson_ == Ups2S || meson_ == Ups3S) {
+    if (barrel_) {
+      if ((trigger & 32) == 32)  return true;
+      return false;
+    }
+    else {
+      if ((trigger & 4) == 4) return true;
+      return false;
+    }
+  }
   return false;
 }
 

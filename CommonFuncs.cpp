@@ -16,12 +16,12 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
     else { // endcap
       if (gen_dimuon_p4->Pt()>16.
           && (
-              ( gen_muonP_p4->Pt()>11.
+              ( gen_muonP_p4->Pt()>8.
                 && gen_muonN_p4->Pt()>3.5
                 )
               ||
               ( gen_muonP_p4->Pt()>3.5
-                && gen_muonN_p4->Pt()>11.
+                && gen_muonN_p4->Pt()>8.
                 )
               )
           ) {
@@ -32,7 +32,7 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
 
   if (meson == Psi2S) {
     if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>10.
+      if (gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
@@ -40,14 +40,14 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
       }
     }
     else { // endcap
-      if (gen_dimuon_p4->Pt()>16.
+      if (gen_dimuon_p4->Pt()>13.
           && (
-              ( gen_muonP_p4->Pt()>11.
+              ( gen_muonP_p4->Pt()>7.
                 && gen_muonN_p4->Pt()>3.5
                 )
               ||
               ( gen_muonP_p4->Pt()>3.5
-                && gen_muonN_p4->Pt()>11.
+                && gen_muonN_p4->Pt()>7.
                 )
               )
           ) {
@@ -58,7 +58,7 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
 
   if (meson == Ups1S) {
     if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>10.
+      if (gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
@@ -66,14 +66,14 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
       }
     }
     else { // endcap
-      if (gen_dimuon_p4->Pt()>16.
+      if (gen_dimuon_p4->Pt()>13.
           && (
-              ( gen_muonP_p4->Pt()>11.
+              ( gen_muonP_p4->Pt()>7.
                 && gen_muonN_p4->Pt()>3.5
                 )
               ||
               ( gen_muonP_p4->Pt()>3.5
-                && gen_muonN_p4->Pt()>11.
+                && gen_muonN_p4->Pt()>7.
                 )
               )
           ) {
@@ -84,7 +84,7 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
 
   if (meson == Ups2S) {
     if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>10.
+      if (gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
@@ -92,14 +92,14 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
       }
     }
     else { // endcap
-      if (gen_dimuon_p4->Pt()>16.
+      if (gen_dimuon_p4->Pt()>13.
           && (
-              ( gen_muonP_p4->Pt()>11.
+              ( gen_muonP_p4->Pt()>7.
                 && gen_muonN_p4->Pt()>3.5
                 )
               ||
               ( gen_muonP_p4->Pt()>3.5
-                && gen_muonN_p4->Pt()>11.
+                && gen_muonN_p4->Pt()>7.
                 )
               )
           ) {
@@ -110,7 +110,7 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
 
   if (meson == Ups3S) {
     if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>10.
+      if (gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
@@ -118,14 +118,14 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
       }
     }
     else { // endcap
-      if (gen_dimuon_p4->Pt()>16.
+      if (gen_dimuon_p4->Pt()>13.
           && (
-              ( gen_muonP_p4->Pt()>11.
+              ( gen_muonP_p4->Pt()>7.
                 && gen_muonN_p4->Pt()>3.5
                 )
               ||
               ( gen_muonP_p4->Pt()>3.5
-                && gen_muonN_p4->Pt()>11.
+                && gen_muonN_p4->Pt()>7.
                 )
               )
           ) {

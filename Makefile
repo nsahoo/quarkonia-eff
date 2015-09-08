@@ -1,7 +1,7 @@
 ROOTCFLAGS    = $(shell root-config --cflags)
 ROOTGLIBS     = $(shell root-config --glibs)
 
-CXX           = clang++
+CXX           = g++
 CXXFLAGS      = -fPIC -ansi -D_GNU_SOURCE -O2 -Wall -Wextra
 CXXDEBUG      = -O -g
 

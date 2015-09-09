@@ -3,14 +3,16 @@
 bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
                    TLorentzVector * gen_muonP_p4,
                    TLorentzVector * gen_muonN_p4,
-                   Meson meson) {
+                   Meson meson,
+                   bool in_barrel) {
   if (meson == JPsi) {
-    if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>10.
+    if ( in_barrel ) {  // barrel
+      if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2
+          && gen_dimuon_p4->Pt()>10.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
-        return true;
+          return true;
       }
     }
     else { // endcap
@@ -31,8 +33,9 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
   }
 
   if (meson == Psi2S) {
-    if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>8.
+    if (in_barrel ) {
+      if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2
+          && gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
@@ -57,8 +60,9 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
   }
 
   if (meson == Ups1S) {
-    if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>8.
+    if (in_barrel ) {
+      if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2
+          && gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {
@@ -83,11 +87,12 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
   }
 
   if (meson == Ups2S) {
-    if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>8.
+    if (in_barrel) {
+      if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2
+          && gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
-          ) {
+        ) {
         return true;
       }
     }
@@ -109,8 +114,9 @@ bool acceptanceCut(TLorentzVector * gen_dimuon_p4,
   }
 
   if (meson == Ups3S) {
-    if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2) { // barrel
-      if (gen_dimuon_p4->Pt()>8.
+    if (in_barrel) {
+      if (TMath::Abs(gen_dimuon_p4->Rapidity())<1.2
+          && gen_dimuon_p4->Pt()>8.
           && gen_muonP_p4->Pt()>3.5
           && gen_muonN_p4->Pt()>3.5
           ) {

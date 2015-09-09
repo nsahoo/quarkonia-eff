@@ -106,7 +106,7 @@ void effLooper::doLoop() {
       Double_t gen_dimuon_pt = gen_dimuon_p4->Pt();
       Double_t gen_dimuon_y = gen_dimuon_p4->Rapidity();
 
-      if (acceptanceCut(gen_dimuon_p4, gen_muonP_p4, gen_muonN_p4)) {
+      if (acceptanceCut(gen_dimuon_p4, gen_muonP_p4, gen_muonN_p4, meson_, barrel_)) {
         all_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);
         if (nonia==1) {
           pas_reco_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);

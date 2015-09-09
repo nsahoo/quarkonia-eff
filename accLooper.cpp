@@ -1,7 +1,8 @@
 #include "accLooper.h"
 
-accLooper::accLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent)
+accLooper::accLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent,bool barrel)
   : treeLooper(ttree_file, tail, meson, nevent, ievent),
+    barrel_(barrel),
     all_pt_h(Form("all_pt_h_%s", tail.c_str()), Form("all_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Alleptance", tail.c_str()), 100, 0., 100.),
     all_y_h(Form("all_y_h_%s", tail.c_str()), Form("all_y_%s_h;|y^{#mu^{+}#mu^{-}}|;Alleptance", tail.c_str()), 100, -2.5, 2.5),
     all_y_pt_h(Form("all_y_pt_h_%s", tail.c_str()), Form("all_y_pt_%s_h;|y^{#mu^{+}#mu^{-}}|;p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
@@ -47,7 +48,7 @@ void accLooper::doLoop() {
 
       all_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);
 
-      if (acceptanceCut(gen_dimuon_p4, gen_muonP_p4, gen_muonN_p4)) {
+      if (acceptanceCut(gen_dimuon_p4, gen_muonP_p4, gen_muonN_p4, meson_, barrel_)) {
         pas_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);
       }
     }

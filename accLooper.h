@@ -12,7 +12,7 @@
 
 class accLooper : public treeLooper {
  public:
-  accLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0);
+  accLooper(string ttree_file = "file.root", string tail = "", Meson meson = JPsi, int nevent = -1, int ievent = 0, bool barrel = false);
   virtual ~accLooper();
 
   virtual void doLoop();
@@ -21,11 +21,9 @@ class accLooper : public treeLooper {
 
   TH2D getAcc(){return acc_y_pt_h;};
 
-  //protected:
-  //  bool acceptanceCut();
-
 private:
 
+  const bool barrel_;
   TH1D all_pt_h;
   TH1D all_y_h;
   TH2D all_y_pt_h;

@@ -36,8 +36,9 @@ int main(int argc, char **argv) {
   string tail = opt.get_tail();
   string inputfile = opt.get_file();
   Meson meson = opt.get_meson();
+  bool barrel = opt.get_barrel();
 
-  accLooper DimuonAcc(inputfile, tail, meson);
+  accLooper DimuonAcc(inputfile, tail, meson, -1, 0, barrel);
   DimuonAcc.doLoop();
   DimuonAcc.doAcc();
 

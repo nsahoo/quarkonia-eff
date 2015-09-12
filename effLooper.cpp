@@ -47,6 +47,12 @@ effLooper::effLooper(string ttree_file, string tail, Meson meson, int nevent, in
   tree->SetBranchStatus("gen_dimuon_p4", 1);
   tree->SetBranchStatus("gen_muonP_p4", 1);
   tree->SetBranchStatus("gen_muonN_p4", 1);
+  tree->SetBranchStatus("dimuon_p4", 1);
+  tree->SetBranchStatus("muonN_p4", 1);
+  tree->SetBranchStatus("muonP_p4", 1);
+  tree->SetBranchStatus("vProb", 1);
+  tree->SetBranchStatus("charge", 1);
+
 }
 
 effLooper::~effLooper() {
@@ -99,16 +105,32 @@ bool effLooper::triggerTest() {
 
 void effLooper::doLoop() {
   for (int i = ievent_; i < max_entry; i++) {
-    if (i % 100000 == 0) cout << i << " / " << max_entry << endl;
+    if ((i%(max_entry/10)) == 0) cout << i << " / " << max_entry << endl;
     tree->GetEntry(i);
     if (nmuons <= 2) {
 
       Double_t gen_dimuon_pt = gen_dimuon_p4->Pt();
       Double_t gen_dimuon_y = gen_dimuon_p4->Rapidity();
 
+      bool accept_m = false;
+      if ( muonP_p4->Pt() > 3.5 && muonN_p4->Pt() > 3.5 ) {
+        if ( meson_ == JPsi ) {
+          if (muonP_p4->Pt() > muonN_p4->Pt() && muonP_p4->Pt() > 8. ) accept_m = true;
+          if (muonN_p4->Pt() > muonP_p4->Pt() && muonN_p4->Pt() > 8. ) accept_m = true;
+        } else {
+          if (meson_ == Ups1S || meson_ == Ups2S || meson_ == Ups3S || meson_ == Psi2S) {
+            if (muonP_p4->Pt() > muonN_p4->Pt() && muonP_p4->Pt() > 7. ) accept_m = true;
+            if (muonN_p4->Pt() > muonP_p4->Pt() && muonN_p4->Pt() > 7. ) accept_m = true;
+          }
+          else if (barrel_) accept_m = true;
+        }
+      }
+
+      bool pass_reco = (vProb>=0.005 && charge == 0 && accept_m && dimuon_p4->M() < maxm_[(int)meson_] && dimuon_p4->M() > minm_[(int)meson_]);
+
       if (acceptanceCut(gen_dimuon_p4, gen_muonP_p4, gen_muonN_p4, meson_, barrel_)) {
         all_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);
-        if (nonia==1) {
+        if (pass_reco) { //nonia==1) {
           pas_reco_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);
           if (triggerTest()) {
             pas_trig_y_pt_h.Fill(gen_dimuon_y, gen_dimuon_pt);

@@ -30,6 +30,8 @@ private:
   bool triggerTest();
 
   const bool barrel_;
+  const Double_t minm_[5] = {2.91,3.4, 8.6,8.6,8.6};
+  const Double_t maxm_[5] = {3.29,4.0,11.5,11.5,11.5};
 
   TH1D all_pt_h;
   TH1D all_y_h;

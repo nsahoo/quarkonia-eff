@@ -39,7 +39,7 @@ accLooper::~accLooper() {
 
 void accLooper::doLoop() {
   for (int i = ievent_; i < max_entry; i++) {
-    if (i % 100000 == 0) cout << i << " / " << max_entry << endl;
+    if ((i%(max_entry/10)) == 0) cout << i << " / " << max_entry << endl;
     tree->GetEntry(i);
     if (nmuons <= 2) {
 

@@ -122,8 +122,8 @@ void effLooper::doLoop() {
             if (muonP_p4->Pt() > muonN_p4->Pt() && muonP_p4->Pt() > 7. ) accept_m = true;
             if (muonN_p4->Pt() > muonP_p4->Pt() && muonN_p4->Pt() > 7. ) accept_m = true;
           }
-          else if (barrel_) accept_m = true;
         }
+        if (barrel_) accept_m = true;
       }
 
       bool pass_reco = (vProb>=0.005 && charge == 0 && accept_m && dimuon_p4->M() < maxm_[(int)meson_] && dimuon_p4->M() > minm_[(int)meson_]);

@@ -3,29 +3,30 @@
 effLooper::effLooper(string ttree_file, string tail, Meson meson, int nevent, int ievent, bool barrel)
   : treeLooper(ttree_file, tail, meson, nevent, ievent),
     barrel_(barrel),
-    all_pt_h(Form("all_pt_h_%s", tail.c_str()), Form("all_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Alleptance", tail.c_str()), 100, 0., 100.),
-    all_y_h(Form("all_y_h_%s", tail.c_str()), Form("all_y_%s_h;y^{#mu^{+}#mu^{-}};Alleptance", tail.c_str()), 100, -2.5, 2.5),
-    all_y_pt_h(Form("all_y_pt_h_%s", tail.c_str()), Form("all_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
+    all_pt_h(Form("all_pt_h_%s", tail.c_str()), Form("all_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Alleptance", tail.c_str()), nb_pt_, 0., 100.),
+    all_y_h(Form("all_y_h_%s", tail.c_str()), Form("all_y_%s_h;y^{#mu^{+}#mu^{-}};Alleptance", tail.c_str()), nb_y_, rapmin_, rapmax_),
+    all_y_pt_h(Form("all_y_pt_h_%s", tail.c_str()), Form("all_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.),
 
-    pas_reco_pt_h(Form("pas_reco_pt_h_%s", tail.c_str()), Form("pas_reco_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Paseptance", tail.c_str()), 100, 0., 100.),
-    pas_reco_y_h(Form("pas_reco_y_h_%s", tail.c_str()), Form("pas_reco_y_%s_h;y^{#mu^{+}#mu^{-}};Paseptance", tail.c_str()), 100, -2.5, 2.5),
-    pas_reco_y_pt_h(Form("pas_reco_y_pt_h_%s", tail.c_str()), Form("pas_reco_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
+    pas_reco_pt_h(Form("pas_reco_pt_h_%s", tail.c_str()), Form("pas_reco_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Paseptance", tail.c_str()), nb_pt_, 0., 100.),
+    pas_reco_y_h(Form("pas_reco_y_h_%s", tail.c_str()), Form("pas_reco_y_%s_h;y^{#mu^{+}#mu^{-}};Paseptance", tail.c_str()), nb_y_, rapmin_, rapmax_),
+    pas_reco_y_pt_h(Form("pas_reco_y_pt_h_%s", tail.c_str()), Form("pas_reco_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.),
 
-    pas_trig_pt_h(Form("pas_trig_pt_h_%s", tail.c_str()), Form("pas_trig_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Paseptance", tail.c_str()), 100, 0., 100.),
-    pas_trig_y_h(Form("pas_trig_y_h_%s", tail.c_str()), Form("pas_trig_y_%s_h;y^{#mu^{+}#mu^{-}};Paseptance", tail.c_str()), 100, -2.5, 2.5),
-    pas_trig_y_pt_h(Form("pas_trig_y_pt_h_%s", tail.c_str()), Form("pas_trig_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
+    pas_trig_pt_h(Form("pas_trig_pt_h_%s", tail.c_str()), Form("pas_trig_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Paseptance", tail.c_str()), nb_pt_, 0., 100.),
+    pas_trig_y_h(Form("pas_trig_y_h_%s", tail.c_str()), Form("pas_trig_y_%s_h;y^{#mu^{+}#mu^{-}};Paseptance", tail.c_str()), nb_y_, rapmin_, rapmax_),
+    pas_trig_y_pt_h(Form("pas_trig_y_pt_h_%s", tail.c_str()), Form("pas_trig_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.),
 
-    eff_reco_pt_h(Form("eff_reco_pt_h_%s", tail.c_str()), Form("eff_reco_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Acceptance", tail.c_str()), 100, 0., 100.),
-    eff_reco_y_h(Form("eff_reco_y_h_%s", tail.c_str()), Form("eff_reco_y_%s_h;y^{#mu^{+}#mu^{-}};Acceptance", tail.c_str()), 100, -2.5, 2.5),
-    eff_reco_y_pt_h(Form("eff_reco_y_pt_h_%s", tail.c_str()), Form("eff_reco_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
+    eff_reco_pt_h(Form("eff_reco_pt_h_%s", tail.c_str()), Form("eff_reco_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Acceptance", tail.c_str()), nb_pt_, 0., 100.),
+    eff_reco_y_h(Form("eff_reco_y_h_%s", tail.c_str()), Form("eff_reco_y_%s_h;y^{#mu^{+}#mu^{-}};Acceptance", tail.c_str()), nb_y_, rapmin_, rapmax_),
+    eff_reco_y_pt_h(Form("eff_reco_y_pt_h_%s", tail.c_str()), Form("eff_reco_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.),
 
-    eff_trig_pt_h(Form("eff_trig_pt_h_%s", tail.c_str()), Form("eff_trig_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Acceptance", tail.c_str()), 100, 0., 100.),
-    eff_trig_y_h(Form("eff_trig_y_h_%s", tail.c_str()), Form("eff_trig_y_%s_h;y^{#mu^{+}#mu^{-}};Acceptance", tail.c_str()), 100, -2.5, 2.5),
-    eff_trig_y_pt_h(Form("eff_trig_y_pt_h_%s", tail.c_str()), Form("eff_trig_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.),
+    eff_trig_pt_h(Form("eff_trig_pt_h_%s", tail.c_str()), Form("eff_trig_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Acceptance", tail.c_str()), nb_pt_, 0., 100.),
+    eff_trig_y_h(Form("eff_trig_y_h_%s", tail.c_str()), Form("eff_trig_y_%s_h;y^{#mu^{+}#mu^{-}};Acceptance", tail.c_str()), nb_y_, rapmin_, rapmax_),
+    eff_trig_y_pt_h(Form("eff_trig_y_pt_h_%s", tail.c_str()), Form("eff_trig_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.),
 
-    eff_tot_pt_h(Form("eff_tot_pt_h_%s", tail.c_str()), Form("eff_tot_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Acceptance", tail.c_str()), 100, 0., 100.),
-    eff_tot_y_h(Form("eff_tot_y_h_%s", tail.c_str()), Form("eff_tot_y_%s_h;y^{#mu^{+}#mu^{-}};Acceptance", tail.c_str()), 100, -2.5, 2.5),
-    eff_tot_y_pt_h(Form("eff_tot_y_pt_h_%s", tail.c_str()), Form("eff_tot_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), 100, -2.5, 2.5,  100, 0., 100.)
+    eff_tot_pt_h(Form("eff_tot_pt_h_%s", tail.c_str()), Form("eff_tot_pt_%s_h;p^{#mu^{+}#mu^{-}}_{T} (GeV);Acceptance", tail.c_str()), nb_pt_, 0., 100.),
+    eff_tot_y_h(Form("eff_tot_y_h_%s", tail.c_str()), Form("eff_tot_y_%s_h;y^{#mu^{+}#mu^{-}};Acceptance", tail.c_str()), nb_y_, rapmin_, rapmax_),
+    eff_tot_y_pt_h(Form("eff_tot_y_pt_h_%s", tail.c_str()), Form("eff_tot_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.),
+    err_eff_tot_y_pt_h(Form("err_eff_tot_y_pt_h_%s", tail.c_str()), Form("err_eff_tot_y_pt_%s_h;y^{#mu^{+}#mu^{-}};p^{#mu^{+}#mu^{-}}_{T} (GeV)", tail.c_str()), nb_y_, rapmin_, rapmax_,  nb_pt_, 0., 100.)
 
 {
   all_pt_h.Sumw2(true);
@@ -107,25 +108,12 @@ void effLooper::doLoop() {
   for (int i = ievent_; i < max_entry; i++) {
     if ((i%(max_entry/10)) == 0) cout << i << " / " << max_entry << endl;
     tree->GetEntry(i);
-    if (nmuons <= 2) {
+    //if (nmuons <= 2) {
 
       Double_t gen_dimuon_pt = gen_dimuon_p4->Pt();
-      Double_t gen_dimuon_y = gen_dimuon_p4->Rapidity();
+      Double_t gen_dimuon_y = TMath::Abs(gen_dimuon_p4->Rapidity());
 
-      bool accept_m = false;
-      if ( muonP_p4->Pt() > 3.5 && muonN_p4->Pt() > 3.5 ) {
-        if ( meson_ == JPsi ) {
-          if (muonP_p4->Pt() > muonN_p4->Pt() && muonP_p4->Pt() > 8. ) accept_m = true;
-          if (muonN_p4->Pt() > muonP_p4->Pt() && muonN_p4->Pt() > 8. ) accept_m = true;
-        } else {
-          if (meson_ == Ups1S || meson_ == Ups2S || meson_ == Ups3S || meson_ == Psi2S) {
-            if (muonP_p4->Pt() > muonN_p4->Pt() && muonP_p4->Pt() > 7. ) accept_m = true;
-            if (muonN_p4->Pt() > muonP_p4->Pt() && muonN_p4->Pt() > 7. ) accept_m = true;
-          }
-        }
-        if (barrel_) accept_m = true;
-      }
-
+      bool accept_m = acceptanceCut(dimuon_p4, muonP_p4, muonN_p4, meson_, barrel_);
       bool pass_reco = (vProb>=0.005 && charge == 0 && accept_m && dimuon_p4->M() < maxm_[(int)meson_] && dimuon_p4->M() > minm_[(int)meson_]);
 
       if (acceptanceCut(gen_dimuon_p4, gen_muonP_p4, gen_muonN_p4, meson_, barrel_)) {
@@ -137,7 +125,7 @@ void effLooper::doLoop() {
           }
         }
       }
-    }
+    //}
   }
 }
 
@@ -153,3 +141,22 @@ void effLooper::doEff() {
   eff_tot_y_pt_h.SetMaximum(1.);
   eff_tot_y_pt_h.SetMinimum(0.);
 }
+
+void effLooper::doEffErr() {
+  Double_t e;
+  Int_t nx = eff_tot_y_pt_h.GetNbinsX();
+  Int_t ny = eff_tot_y_pt_h.GetNbinsY();
+
+  for (Int_t i=1; i<nx; i++){
+     for (Int_t j=1; j<ny; j++){
+        e = eff_tot_y_pt_h.GetBinError(i,j);
+        err_eff_tot_y_pt_h.SetBinContent(i,j,e);
+        err_eff_tot_y_pt_h.SetBinError(i,j,0.);
+     }
+  }
+
+  err_eff_tot_y_pt_h.SetMaximum(1.);
+  err_eff_tot_y_pt_h.SetMinimum(0.);
+
+}
+

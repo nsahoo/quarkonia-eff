@@ -20,15 +20,23 @@ class effLooper : public treeLooper {
   virtual void doLoop();
 
   void doEff();
+  void doEffErr();
 
   TH2D getRecoEff(){return eff_reco_y_pt_h;};
   TH2D getTrigEff(){return eff_trig_y_pt_h;};
   TH2D getTotEff(){return eff_tot_y_pt_h;};
+  TH2D getTotEffErr(){return err_eff_tot_y_pt_h;};
+  TH2D getTotAll(){return all_y_pt_h;};
+  TH2D getTotPas(){return pas_trig_y_pt_h;};
 
 private:
 
   bool triggerTest();
 
+  const Int_t nb_y_  =  25;
+  const Int_t nb_pt_ = 100;
+  const Double_t rapmin_ = 0.;
+  const Double_t rapmax_ = 2.5;
   const bool barrel_;
   const Double_t minm_[5] = {2.91,3.4, 8.6,8.6,8.6};
   const Double_t maxm_[5] = {3.29,4.0,11.5,11.5,11.5};
@@ -56,6 +64,8 @@ private:
   TH1D eff_tot_pt_h;
   TH1D eff_tot_y_h;
   TH2D eff_tot_y_pt_h;
+
+  TH2D err_eff_tot_y_pt_h;
 
 
 };
